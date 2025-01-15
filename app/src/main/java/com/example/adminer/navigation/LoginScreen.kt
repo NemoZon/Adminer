@@ -4,9 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onLoginPressed: () -> Unit
+) {
     LoginScreenContent(
         modifier = Modifier
             .fillMaxSize(),
+        onLoginPressed,
     )
 }

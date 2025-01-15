@@ -1,5 +1,7 @@
 package com.example.adminer.navigation
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -13,11 +15,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
 fun LoginScreenContent(
     modifier: Modifier = Modifier,
-) {
+    onLoginPressed: () -> Unit,
+    ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
 
@@ -45,7 +50,7 @@ fun LoginScreenContent(
 
         // Login Button
         Button(
-            onClick = {},
+            onClick = onLoginPressed,
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text("Login")

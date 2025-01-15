@@ -1,4 +1,4 @@
-package com.example.adminer.data
+package com.example.adminer.data.entities
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

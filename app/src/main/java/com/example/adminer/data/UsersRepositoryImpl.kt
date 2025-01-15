@@ -1,5 +1,7 @@
 package com.example.adminer.data
 
+import com.example.adminer.data.entities.User
+import com.example.adminer.data.http.NetworkResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 

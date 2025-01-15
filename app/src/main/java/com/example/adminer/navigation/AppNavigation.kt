@@ -1,5 +1,6 @@
 package com.example.adminer.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,7 +15,17 @@ fun AppNavigation(
         startDestination = Screens.LoginScreen.route
     ) {
         composable(Screens.LoginScreen.route) {
-            LoginScreen()
+            LoginScreen {
+                try {
+                    Log.d("NavigationDebug", "HomeScreen")
+                    navHostController.navigate(Screens.HomeScreen.route)
+                } catch (e: Exception) {
+                    Log.e("NavigationDebug", "Error serializing cat: ${e.message}")
+                }
+            }
+        }
+        composable(Screens.HomeScreen.route) {
+            HomeScreen()
         }
     }
 }

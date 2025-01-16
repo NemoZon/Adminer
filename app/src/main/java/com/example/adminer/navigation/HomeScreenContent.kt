@@ -23,6 +23,6 @@ fun HomeScreenContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("You are logged in as ${me?.email}")
+        Text("You are logged in as ${me?.email} ${me?.role} ")
     }
 }

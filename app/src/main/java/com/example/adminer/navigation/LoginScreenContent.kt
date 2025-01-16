@@ -1,6 +1,5 @@
 package com.example.adminer.navigation
 
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,19 +9,44 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import androidx.navigation.NavHostController
+import com.example.adminer.data.entities.User
+import com.example.adminer.data.http.AuthService
+import com.example.adminer.data.http.NetworkResult
+
+fun onLoginPressed(email: String, password: String, navHostController: NavHostController, onError: (message: String) -> Unit) {
+    try {
+        Log.d("NavigationDebug", "HomeScreen")
+        when (val result = AuthService.login(email, password)) {
+            is NetworkResult.Success -> {
+                val user: User = result.data
+                navHostController.navigate(Screens.HomeScreen.route)
+                Log.d("Login", "Login successful: $user")
+            }
+            is NetworkResult.Error -> {
+                Log.e("Login", "Error during login: ${result.error}")
+                onError(result.error)
+            }
+        }
+    } catch (e: Exception) {
+        Log.e("NavigationDebug", "Error serializing cat: ${e.message}")
+    }
+}
 
 @Composable
 fun LoginScreenContent(
     modifier: Modifier = Modifier,
-    onLoginPressed: () -> Unit,
-    ) {
+    navHostController: NavHostController,
+) {
+    var errorMessage by remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
 
@@ -47,10 +71,22 @@ fun LoginScreenContent(
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth()
         )
-
+        if (errorMessage.isNotEmpty()) {
+            Text(errorMessage, modifier = Modifier.padding(top = 10.dp), color = Color.Red)
+        }
         // Login Button
         Button(
-            onClick = onLoginPressed,
+            onClick = {
+                val trimmedEmail = email.value.trim()
+                val trimmedPassword = password.value.trim()
+
+                if (trimmedEmail.isNotEmpty() && trimmedPassword.isNotEmpty()) {
+                    onLoginPressed(trimmedEmail, trimmedPassword, navHostController) { message ->
+                        errorMessage = message
+                    }
+                } else {
+                    errorMessage = "L'email et/ou le mot de passe sont vides"
+                }},
             modifier = Modifier.padding(top = 16.dp)
         ) {
             Text("Login")

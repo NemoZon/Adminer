@@ -8,7 +8,7 @@ data class User(
     @SerialName("_id")
     val id: String,
     @SerialName("email")
-    val createdAt: String? = null,
+    val email: String? = null,
     @SerialName("password")
-    val owner: String? = null,
+    val password: String? = null,
 )

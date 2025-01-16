@@ -1,7 +1,9 @@
-package com.example.adminer.data
+package com.example.adminer.data.repositories
 
+import com.example.adminer.data.http.UsersAPI
 import com.example.adminer.data.entities.User
 import com.example.adminer.data.http.NetworkResult
+import com.example.adminer.data.mocks.userList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
@@ -22,5 +24,8 @@ class UsersRepositoryImpl(
                 NetworkResult.Error(e.message ?: "Unknown error")
             }
         }
+    }
+    override suspend fun getMockUsers(): NetworkResult<List<User>> {
+        return NetworkResult.Success(userList)
     }
 }

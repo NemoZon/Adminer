@@ -15,14 +15,7 @@ fun AppNavigation(
         startDestination = Screens.LoginScreen.route
     ) {
         composable(Screens.LoginScreen.route) {
-            LoginScreen {
-                try {
-                    Log.d("NavigationDebug", "HomeScreen")
-                    navHostController.navigate(Screens.HomeScreen.route)
-                } catch (e: Exception) {
-                    Log.e("NavigationDebug", "Error serializing cat: ${e.message}")
-                }
-            }
+            LoginScreen(navHostController)
         }
         composable(Screens.HomeScreen.route) {
             HomeScreen()

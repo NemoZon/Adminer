@@ -1,8 +1,9 @@
 package com.example.adminer.di
 
-import com.example.adminer.data.UsersAPI
-import com.example.adminer.data.UsersRepository
-import com.example.adminer.data.UsersRepositoryImpl
+import com.example.adminer.data.http.AuthAPI
+import com.example.adminer.data.http.UsersAPI
+import com.example.adminer.data.repositories.UsersRepository
+import com.example.adminer.data.repositories.UsersRepositoryImpl
 import com.example.adminer.viewmodel.UsersViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -22,8 +23,9 @@ val appModules = module {
                     ignoreUnknownKeys = true
                 }.asConverterFactory(contentType = "application/json".toMediaType())
             )
-            .baseUrl("https://cataas.com/api/")
+            .baseUrl("https://api.com/api/")
             .build()
     }
     single { get<Retrofit>().create(UsersAPI::class.java) }
+    single { get<Retrofit>().create(AuthAPI::class.java) }
 }

@@ -1,4 +1,4 @@
-package com.example.adminer.data
+package com.example.adminer.data.http
 
 import com.example.adminer.data.entities.User
 import retrofit2.Response

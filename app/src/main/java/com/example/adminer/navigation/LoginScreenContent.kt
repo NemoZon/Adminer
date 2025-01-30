@@ -24,7 +24,6 @@ import com.example.adminer.data.http.NetworkResult
 
 fun onLoginPressed(email: String, password: String, navHostController: NavHostController, onError: (message: String) -> Unit) {
     try {
-        Log.d("NavigationDebug", "HomeScreen")
         when (val result = AuthService.login(email, password)) {
             is NetworkResult.Success -> {
                 val user: User = result.data
@@ -37,7 +36,7 @@ fun onLoginPressed(email: String, password: String, navHostController: NavHostCo
             }
         }
     } catch (e: Exception) {
-        Log.e("NavigationDebug", "Error serializing cat: ${e.message}")
+        Log.e("NavigationDebug", "Error: ${e.message}")
     }
 }
 
@@ -45,10 +44,10 @@ fun onLoginPressed(email: String, password: String, navHostController: NavHostCo
 fun LoginScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-) {
+    ) {
     var errorMessage by remember { mutableStateOf("") }
-    val email = remember { mutableStateOf("") }
-    val password = remember { mutableStateOf("") }
+    val email = remember { mutableStateOf("admin1@example.com") }
+    val password = remember { mutableStateOf("password1") }
 
     Column(
         modifier = modifier
@@ -85,7 +84,7 @@ fun LoginScreenContent(
                         errorMessage = message
                     }
                 } else {
-                    errorMessage = "L'email et/ou le mot de passe sont vides"
+                    errorMessage = "Email and password required"
                 }},
             modifier = Modifier.padding(top = 16.dp)
         ) {

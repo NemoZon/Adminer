@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 import okhttp3.MediaType.Companion.toMediaType
 
 val appModules = module {
-    single<UsersRepository> { UsersRepositoryImpl(get(), get()) }
+    single<UsersRepository> { UsersRepositoryImpl(get()) }
     single { Dispatchers.IO }
     single { UsersViewModel(get()) }
     single {

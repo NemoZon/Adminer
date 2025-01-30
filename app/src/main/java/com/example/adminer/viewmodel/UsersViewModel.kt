@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.adminer.data.entities.User
 import com.example.adminer.data.http.AuthService
 import com.example.adminer.data.http.NetworkResult
+import com.example.adminer.data.mocks.students
 import com.example.adminer.data.repositories.UsersRepository
 import com.example.adminer.views.UsersUIState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,64 @@ class UsersViewModel(
                     }
                 }
                 is NetworkResult.Error -> {
+                    println("getUsers error: ${result.error}")
+                    usersUIState.update {
+                        it.copy(isLoading = false, error = result.error)
+                    }
+                }
+            }
+        }
+    }
+    private fun getStudents() {
+        usersUIState.value = UsersUIState(isLoading = true)
+        viewModelScope.launch {
+            when (val result = usersRepository.getStudents()) {
+                is NetworkResult.Success -> {
+                    println("getStudents succes ${result.data}")
+                    usersUIState.update {
+                        println("getStudents update: ${result.data}")
+                        it.copy(isLoading = false, students = result.data)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    println("getStudents error: ${result.error}")
+                    println("Error fetching students: ${result.error}")
+                    usersUIState.update {
+                        it.copy(isLoading = false, error = result.error)
+                    }
+                }
+            }
+        }
+    }
+    private fun getAdmins() {
+        usersUIState.value = UsersUIState(isLoading = true)
+        viewModelScope.launch {
+            when (val result = usersRepository.getAdmins()) {
+                is NetworkResult.Success -> {
+                    usersUIState.update {
+                        it.copy(isLoading = false, admins = result.data)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    println("getAdmins error: ${result.error}")
+                    usersUIState.update {
+                        it.copy(isLoading = false, error = result.error)
+                    }
+                }
+            }
+        }
+    }
+    private fun getSpeakers() {
+        usersUIState.value = UsersUIState(isLoading = true)
+        viewModelScope.launch {
+            when (val result = usersRepository.getSpeakers()) {
+                is NetworkResult.Success -> {
+                    usersUIState.update {
+                        it.copy(isLoading = false, speakers = result.data)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    println("getSpeakers error: ${result.error}")
                     usersUIState.update {
                         it.copy(isLoading = false, error = result.error)
                     }
@@ -46,7 +105,10 @@ class UsersViewModel(
         }
     }
     init {
+        getStudents()
         getUsers()
         getMe()
+        getSpeakers()
+        getAdmins()
     }
 }

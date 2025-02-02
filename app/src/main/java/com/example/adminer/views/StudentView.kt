@@ -22,13 +22,15 @@ import com.example.adminer.data.entities.Student
 @Composable
 fun StudentView(
     modifier: Modifier = Modifier,
-    student: Student
+    student: Student,
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
+        onClick = onClick,
         elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
         Column(

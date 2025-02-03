@@ -2,10 +2,8 @@ package com.example.adminer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.adminer.data.entities.User
 import com.example.adminer.data.http.AuthService
 import com.example.adminer.data.http.NetworkResult
-import com.example.adminer.data.mocks.students
 import com.example.adminer.data.repositories.UsersRepository
 import com.example.adminer.views.UsersUIState
 import kotlinx.coroutines.flow.MutableStateFlow

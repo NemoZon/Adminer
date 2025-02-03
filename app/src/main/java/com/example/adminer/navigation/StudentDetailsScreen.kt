@@ -26,11 +26,13 @@ fun StudentDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Pet Details")
+                    Text(
+                        text = "${student.firstName} ${student.lastName}",
+                        color = MaterialTheme.colorScheme.onSecondary
+                    )
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.
-                    primary,
+                    containerColor = MaterialTheme.colorScheme.secondary,
                 ),
                 navigationIcon = {
                     IconButton(
@@ -38,7 +40,8 @@ fun StudentDetailsScreen(
                         content = {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
-                                contentDescription = "Back"
+                                contentDescription = "Back",
+                                tint = MaterialTheme.colorScheme.onSecondary
                             )
                         }
                     )

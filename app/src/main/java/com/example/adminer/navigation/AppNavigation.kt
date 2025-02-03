@@ -38,7 +38,7 @@ fun AppNavigation(
             val student = try {
                 Json.decodeFromString<Student>(Uri.decode(encodedStudent))
             } catch (e: Exception) {
-                Log.e("NavigationDebug", "Error deserializing cat: ${e.message}")
+                Log.e("NavigationDebug", "Error deserializing student: ${e.message}")
                 null
             }
             if (student != null) {

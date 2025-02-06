@@ -43,7 +43,7 @@ import java.util.Locale
 @Composable
 fun AddEvaluationDialog(
     onDismiss: () -> Unit,
-    onConfirm: (Lesson, String) -> Unit,
+    onConfirm: (lesson: Lesson, grade: String) -> Unit,
 ) {
     val lessonsViewModel: LessonsViewModel = koinViewModel()
     val lessonsUIState by lessonsViewModel.lessonsUIState.collectAsStateWithLifecycle()

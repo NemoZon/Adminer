@@ -33,7 +33,7 @@ val speakers: List<Speaker> = listOf(
     Speaker("8", "Charlie", "Brown", "https://picsum.photos/200?random=6", listOf("2"))
 )
 
-val students: List<Student> = listOf(
+var students: List<Student> = listOf(
     Student("3", "Jane", "Doe", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZKqIbnrGeTF8r6379KgkQS9qx9DJJMar6vQ&s", listOf("1"), listOf("1"), "1"),
     Student("6", "Bob", "Smith", "https://t3.ftcdn.net/jpg/10/26/74/06/360_F_1026740666_QT9g78hpEacnZpycTOmyg3krOsJjzgkQ.jpg", listOf("2"), emptyList(), "1"),
     Student("9", "David", "Brown", "https://artproperty.net/storage/116336/conversions/studencheskaya_viza_i_vnzh_dlya_studentov_v_turczii-1000x_.jpg", listOf("3"), emptyList(), "1")

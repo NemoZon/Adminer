@@ -28,7 +28,6 @@ fun onStudentPressed(navHostController: NavHostController, student: Student) {
     try {
         val jsonStudent = Json.encodeToString(student)
         val encodedStudent = Uri.encode(jsonStudent)
-        Log.d("NavigationDebug", "Serialized cat: $jsonStudent")
         navHostController.navigate("${Screens.StudentDetailsScreen.route}/$encodedStudent")
         navHostController.navigate(Screens.StudentDetailsScreen.route)
     } catch (e: Exception) {

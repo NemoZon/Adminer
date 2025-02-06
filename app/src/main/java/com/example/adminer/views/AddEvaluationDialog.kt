@@ -124,7 +124,13 @@ fun AddEvaluationDialog(
                 Text("Grade", fontWeight = FontWeight.Medium)
                 OutlinedTextField(
                     value = grade,
-                    onValueChange = { grade = it },
+                    onValueChange = { input ->
+                        grade = if (input.toIntOrNull() != null) {
+                            input
+                        } else {
+                            grade
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
                 )

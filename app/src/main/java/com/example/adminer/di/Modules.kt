@@ -1,5 +1,6 @@
 package com.example.adminer.di
 
+import com.example.adminer.data.entities.RoleActions
 import com.example.adminer.data.http.AuthAPI
 import com.example.adminer.data.http.UsersAPI
 import com.example.adminer.data.repositories.AbsencesRepository
@@ -10,12 +11,15 @@ import com.example.adminer.data.repositories.LessonsRepository
 import com.example.adminer.data.repositories.LessonsRepositoryImpl
 import com.example.adminer.data.repositories.ObjectRepository
 import com.example.adminer.data.repositories.ObjectRepositoryImpl
+import com.example.adminer.data.repositories.RoleActionsRepository
+import com.example.adminer.data.repositories.RoleActionsRepositoryImpl
 import com.example.adminer.data.repositories.UsersRepository
 import com.example.adminer.data.repositories.UsersRepositoryImpl
 import com.example.adminer.viewmodel.AbsencesViewModel
 import com.example.adminer.viewmodel.EvaluationsViewModel
 import com.example.adminer.viewmodel.LessonsViewModel
 import com.example.adminer.viewmodel.ObjectsViewModel
+import com.example.adminer.viewmodel.RoleActionsViewModel
 import com.example.adminer.viewmodel.UsersViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +34,7 @@ val appModules = module {
     single<LessonsRepository> { LessonsRepositoryImpl(get()) }
     single<AbsencesRepository> { AbsencesRepositoryImpl(get()) }
     single<ObjectRepository> { ObjectRepositoryImpl(get()) }
+    single<RoleActionsRepository> { RoleActionsRepositoryImpl(get()) }
 
     single { Dispatchers.IO }
     single { UsersViewModel(get()) }
@@ -37,6 +42,7 @@ val appModules = module {
     single { LessonsViewModel(get()) }
     single { AbsencesViewModel(get()) }
     single { ObjectsViewModel(get()) }
+    single { RoleActionsViewModel(get()) }
 
     single {
         Retrofit.Builder()

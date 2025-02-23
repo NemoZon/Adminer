@@ -17,16 +17,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.adminer.data.entities.User
 import com.example.adminer.data.http.AuthService
 import com.example.adminer.data.http.NetworkResult
+import com.example.adminer.viewmodel.UsersViewModel
+import org.koin.androidx.compose.koinViewModel
 
-fun onLoginPressed(email: String, password: String, navHostController: NavHostController, onError: (message: String) -> Unit) {
+fun onLoginPressed(email: String, password: String, navHostController: NavHostController, onSuccess: () -> Unit, onError: (message: String) -> Unit) {
     try {
         when (val result = AuthService.login(email, password)) {
             is NetworkResult.Success -> {
                 val user: User = result.data
+                onSuccess()
                 navHostController.navigate(Screens.HomeScreen.route)
                 Log.d("Login", "Login successful: $user")
             }
@@ -45,6 +49,8 @@ fun LoginScreenContent(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     ) {
+
+    val usersViewModel: UsersViewModel = koinViewModel()
     var errorMessage by remember { mutableStateOf("") }
     val email = remember { mutableStateOf("admin1@example.com") }
     val password = remember { mutableStateOf("password1") }
@@ -80,7 +86,8 @@ fun LoginScreenContent(
                 val trimmedPassword = password.value.trim()
 
                 if (trimmedEmail.isNotEmpty() && trimmedPassword.isNotEmpty()) {
-                    onLoginPressed(trimmedEmail, trimmedPassword, navHostController) { message ->
+                    onLoginPressed(trimmedEmail, trimmedPassword, navHostController,
+                        { usersViewModel.getMe() }) { message ->
                         errorMessage = message
                     }
                 } else {

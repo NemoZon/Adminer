@@ -37,14 +37,11 @@ class UsersViewModel(
         viewModelScope.launch {
             when (val result = usersRepository.getStudents()) {
                 is NetworkResult.Success -> {
-                    println("getStudents succes ${result.data}")
                     usersUIState.update {
-                        println("getStudents update: ${result.data}")
                         it.copy(isLoading = false, students = result.data)
                     }
                 }
                 is NetworkResult.Error -> {
-                    println("getStudents error: ${result.error}")
                     println("Error fetching students: ${result.error}")
                     usersUIState.update {
                         it.copy(isLoading = false, error = result.error)
@@ -89,7 +86,7 @@ class UsersViewModel(
             }
         }
     }
-    private fun getMe() {
+    fun getMe() {
         val me = AuthService.getAuthUser()
 
         if (me != null) {

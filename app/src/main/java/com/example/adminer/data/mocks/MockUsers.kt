@@ -17,7 +17,6 @@ val userList: List<User> = listOf(
     User("8", "student1@example.com", "password3", role = RoleEnum.STUDENT, roleId = "3"),
     User("9", "student2@example.com", "password6", role = RoleEnum.STUDENT, roleId = "6"),
     User("10", "student3@example.com", "password9", role = RoleEnum.STUDENT, roleId = "9"),
-
 )
 
 val admins: List<Admin> = listOf(

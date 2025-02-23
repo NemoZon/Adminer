@@ -2,11 +2,11 @@ package com.example.adminer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.adminer.data.entities.ActionEnum
 import com.example.adminer.data.http.NetworkResult
-import com.example.adminer.data.repositories.ObjectRepository
 import com.example.adminer.data.repositories.RoleActionsRepository
-import com.example.adminer.views.ObjectsUIState
 import com.example.adminer.views.RoleActionsUIState
+import com.example.adminer.views.UsersUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class RoleActionsViewModel(
     private val roleActionsRepository: RoleActionsRepository
 ): ViewModel() {
-    private val roleActionsUIState = MutableStateFlow(RoleActionsUIState())
+    val roleActionsUIState = MutableStateFlow(RoleActionsUIState())
 
     private fun getRoleActions() {
         roleActionsUIState.value = RoleActionsUIState(isLoading = true)

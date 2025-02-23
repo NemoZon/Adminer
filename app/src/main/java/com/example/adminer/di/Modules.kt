@@ -1,10 +1,11 @@
 package com.example.adminer.di
 
-import com.example.adminer.data.entities.RoleActions
 import com.example.adminer.data.http.AuthAPI
 import com.example.adminer.data.http.UsersAPI
 import com.example.adminer.data.repositories.AbsencesRepository
 import com.example.adminer.data.repositories.AbsencesRepositoryImpl
+import com.example.adminer.data.repositories.ClassesRepository
+import com.example.adminer.data.repositories.ClassesRepositoryImpl
 import com.example.adminer.data.repositories.EvaluationsRepository
 import com.example.adminer.data.repositories.EvaluationsRepositoryImpl
 import com.example.adminer.data.repositories.LessonsRepository
@@ -16,6 +17,7 @@ import com.example.adminer.data.repositories.RoleActionsRepositoryImpl
 import com.example.adminer.data.repositories.UsersRepository
 import com.example.adminer.data.repositories.UsersRepositoryImpl
 import com.example.adminer.viewmodel.AbsencesViewModel
+import com.example.adminer.viewmodel.ClassesViewModel
 import com.example.adminer.viewmodel.EvaluationsViewModel
 import com.example.adminer.viewmodel.LessonsViewModel
 import com.example.adminer.viewmodel.ObjectsViewModel
@@ -33,6 +35,7 @@ val appModules = module {
     single<EvaluationsRepository> { EvaluationsRepositoryImpl(get()) }
     single<LessonsRepository> { LessonsRepositoryImpl(get()) }
     single<AbsencesRepository> { AbsencesRepositoryImpl(get()) }
+    single<ClassesRepository> { ClassesRepositoryImpl(get()) }
     single<ObjectRepository> { ObjectRepositoryImpl(get()) }
     single<RoleActionsRepository> { RoleActionsRepositoryImpl(get()) }
 
@@ -41,6 +44,7 @@ val appModules = module {
     single { EvaluationsViewModel(get()) }
     single { LessonsViewModel(get()) }
     single { AbsencesViewModel(get()) }
+    single { ClassesViewModel(get()) }
     single { ObjectsViewModel(get()) }
     single { RoleActionsViewModel(get()) }
 

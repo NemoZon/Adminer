@@ -16,18 +16,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.adminer.data.entities.ActionEnum
 import com.example.adminer.data.entities.Evaluation
 import com.example.adminer.data.entities.Lesson
+import com.example.adminer.data.entities.RoleActions
+import com.example.adminer.data.entities.RoleEnum
 import com.example.adminer.data.entities.Student
 import com.example.adminer.viewmodel.EvaluationsViewModel
+import com.example.adminer.viewmodel.RoleActionsViewModel
+import com.example.adminer.viewmodel.UsersViewModel
 import org.koin.androidx.compose.koinViewModel
+
+fun getMyRoleActionAccess(myRole: RoleEnum, roleActions: List<RoleActions>,action: ActionEnum): Boolean {
+    val myRoleActions = roleActions.find { it.role == myRole }
+
+    return myRoleActions?.actions?.contains(action) ?: false
+}
 
 @Composable
 fun EvaluationList(
     modifier: Modifier = Modifier,
     student: Student,
-    hasRightsToCRUD: Boolean
 ) {
+    val roleActionsViewModel: RoleActionsViewModel = koinViewModel()
+    val roleActionsUIState by roleActionsViewModel.roleActionsUIState.collectAsStateWithLifecycle()
+    val usersViewModel: UsersViewModel = koinViewModel()
+    val usersUIState by usersViewModel.usersUIState.collectAsStateWithLifecycle()
+
+    val hasRightsToCRUD = if (usersUIState.me?.user?.role != null) {
+        getMyRoleActionAccess(usersUIState.me!!.user.role ,roleActionsUIState.roleActions , ActionEnum.EVALUATION_CREATE)
+    } else {
+        false;
+    }
+
     val evaluationsViewModel: EvaluationsViewModel = koinViewModel()
 
     val evaluationsUIState by evaluationsViewModel.evaluationsUIState.collectAsStateWithLifecycle()
